@@ -1,0 +1,73 @@
+﻿@page
+@model Coursework.Pages.ProductPage9Model
+@{
+}
+<head>
+	<script>
+	window.onload = function() {
+	let productGalleryImg = document.getElementById('product-gallery-img');
+	let productImgBtn = document.getElementsByClassName("product-img-btn");
+	let enlargeImgBtn = document.getElementsByClassName("enlarge-img-btn")[0];
+
+	enlargeImgBtn.addEventListener("click", function() {
+		productGalleryImg.classList.toggle("enlarged");
+	});
+
+	productImgBtn[0].onclick = function(){
+	productGalleryImg.src = "Images/SketchbookItem2.webp";
+	for(bt of productImgBtn){
+		bt.classList.remove("active");
+	}
+	this.classList.add("active");
+	}
+	productImgBtn[1].onclick = function(){
+	productGalleryImg.src = "Images/SketchbookItem2-1.webp";
+	for(bt of productImgBtn){
+	bt.classList.remove("active");
+	}
+	this.classList.add("active");
+	}
+	};
+</script>
+</head>
+
+<main>
+	<div class="product-page-container">
+		<div class="product-page">
+			<div class="product-gallery">
+				<img src="Images/SketchbookItem2.webp" id="product-gallery-img">
+				<div class="controls">
+					<span class="product-img-btn active"></span>
+					<span class="product-img-btn"></span>
+					<span class="enlarge-img-btn">+</span>
+				</div>
+			</div>
+			<div class="product-page-details">
+				@if (TempData["LoginSuccessMessage"] != null)
+				{
+					<div class="text-success">
+						@TempData["LoginSuccessMessage"]
+					</div>
+				}
+				@foreach (var product in Model.ProductList)
+				{
+					@if (product.ProductId == 9)
+					{
+						<h1>@product.Name</h1>
+						<h2>@product.Price.ToString("$0.00")</h2>
+						<p>@product.Description</p>
+						@if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
+						{
+							<form method="post">
+								<input type="hidden" name="productId" value="@product.ProductId" />
+								<button type="submit" class="add-to-cart-2">Add to Cart</button>
+							</form>
+						}
+					}
+
+				}
+			</div>
+		</div>
+	</div>
+	<br><br>
+</main>

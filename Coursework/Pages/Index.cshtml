@@ -1,0 +1,76 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<main>
+	<div class="class-bg">
+		<img src="Images/SignUp.png" class="wel-image">
+		<div class="text">
+			<h1>Welcome to the Art Cavort's Stationery Shop!</h1>
+			@if (User.Identity.IsAuthenticated)
+			{
+				<p>You're now signed in as: @User.Identity.Name</p>
+			}
+			else
+			{
+				<p>We sell art related products of the highest quality, begin shopping by signing up on our website.</p>
+				<a asp-page="/SignUp">Sign up</a>
+			}
+
+		</div>
+	</div>
+	@if (TempData["LoginSuccessMessage"] != null)
+	{
+		<br>
+		<br>
+		<div class="text-success">
+			@TempData["LoginSuccessMessage"]
+		</div>
+	}
+
+	<a asp-page="/Products">
+		<div class='sect-info'>
+			<h2 class="sect-header">Item Categories</h2>
+			<div class="lesson-desc">
+				<!--This div contains the image and text overlay, it also has an a tag to make it a link to the corresponding page-->
+				<img src="Images/ArtCategory.jpg" class="image">
+				<div class="overlay">
+					<!--This div is the overlay text on top of the image-->
+					<div class="img-title">Art</div>
+					<p class="img-desc">Includes paint brushes, charcoals, pastels, pencils and more.</p>
+				</div>
+			</div>
+
+			<div class="lesson-desc">
+				<img src="Images/CanvasCategory.jpg" class="image">
+				<div class="overlay">
+					<div class="img-title">Canvases</div>
+					<p class="img-desc">Includes sketchbooks, paper, cards and more canvases.</p>
+				</div>
+			</div>
+
+			<div class="lesson-desc">
+				<img src="Images/CraftCategory.jpg" class="image">
+				<div class="overlay">
+					<div class="img-title">Craft</div>
+					<p class="img-desc">Includes adhesives, print making, clays, cutting utilities and more.</p>
+				</div>
+			</div>
+
+			<div class="lesson-desc">
+				<img src="Images/StationeryCategory.jpg" class="image">
+				<div class="overlay">
+					<div class="img-title">Stationery</div>
+					<p class="img-desc">Includes general office stationery such as ballpoint pens, notebooks, staplers, punches and more.</p>
+				</div>
+			</div>
+		</div>
+	</a>
+
+	<div class='sect-info'>
+		<p>Many items are available for purchase here in the ACS, browse our shop now!</p>
+		<a asp-page="/Products" class="sect-link">Take a Look</a>
+	</div>
+</main>

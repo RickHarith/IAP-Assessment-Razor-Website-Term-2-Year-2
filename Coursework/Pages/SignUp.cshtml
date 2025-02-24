@@ -1,0 +1,47 @@
+﻿@page
+@using Coursework.Pages.Model
+@model Coursework.Pages.SignUpModel
+@{
+}
+
+
+<main>
+	<div class="signup-bg">
+		<img src="Images\SignUp.png" class="sign-bg">
+		<div class="signup-text">
+			<h1>Create an Account!</h1>
+		</div>
+	</div>
+	<br><br><br>
+	<div class="signup-container">
+		<div class="signup-header">
+			<h2>Sign Up</h2>
+		</div>
+		<form class="signup-form" id="SIGNUPFORM" method="post">
+			<div asp-validation-summary="All" class="text-failure"></div>
+			<div class="signup-form-control">
+				<label>Username: </label>
+				<input type="text" id="USERNAME" placeholder="Type your username here" asp-for="@Model.users.UserName" required>
+			</div>
+			<div class="signup-form-control">
+				<label>Name: </label>
+				<input type="text" id="NAME" placeholder="Type your real name here" asp-for="@Model.users.Name">
+			</div>
+
+			<div class="signup-form-control">
+				<label>E-mail: </label>
+				<input type="text" id="EMAIL" placeholder="Type your e-mail here" asp-for="@Model.users.Email">
+			</div>
+
+			<div class="signup-form-control">
+				<label>Password: </label>
+				<input type="password" id="PASSWORD" placeholder="Type your password here" asp-for="@Model.users.Password">
+			</div>
+
+			<input type="submit" value="Sign Up">
+		</form>
+	</div>
+</main>
+<br>
+<br>
+<br>

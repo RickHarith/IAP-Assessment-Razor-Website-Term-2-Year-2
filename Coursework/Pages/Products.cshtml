@@ -1,0 +1,144 @@
+﻿@page
+@model Coursework.Pages.ProductsModel
+@{
+}
+
+<main>
+    <div class="signup-bg">
+        <img src="Images\SignUp.png" class="sign-bg">
+        <div class="signup-text">
+            <h1>Products</h1>
+        </div>
+    </div>
+    <br><br>
+    <div class="product-row-2">
+        @if (TempData["LoginSuccessMessage"] != null)
+	    {
+		    <br>
+		    <br>
+		    <div class="text-success">
+			    @TempData["LoginSuccessMessage"]
+		    </div>
+	    }
+        @foreach (var product in Model.ProductList)
+        {
+            <div class="product-container-2">
+                @if(product.ProductId == 1)
+                {
+                  	<img src="Images/WatercolourItem1.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 2)
+                {
+                    <img src="Images/WatercolourItem2.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 3)
+                {
+                    <img src="Images/WatercolourItem3.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 4)
+                {
+                    <img src="Images/PastelItem2.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 5)
+                {
+                    <img src="Images/PastelItem1.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 6)
+                {
+                    <img src="Images/PencilItem1.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 7)
+                {
+                    <img src="Images/PencilItem2.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 8)
+                {
+                    <img src="Images/SketchbookItem1.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 9)
+                {
+                    <img src="Images/SketchbookItem2.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 10)
+                {
+                    <img src="Images/CraftItem1.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 11)
+                {
+                    <img src="Images/CraftItem2.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 12)
+                {
+                    <img src="Images/StationeryItem1.webp" class="product-img"></img>
+                }
+                @if (product.ProductId == 13)
+                {
+                    <img src="Images/StationeryItem2.webp" class="product-img"></img>
+                }
+
+                <div class="product-name-2">@product.Name</div>
+                <div class="product-description-2">@product.Description</div>
+                <div class="product-price-2">@product.Price.ToString("$0.00")</div>
+                @if (product.ProductId == 1)
+                {
+                    <a asp-page="ProductPage1">More Info</a>
+                }
+                @if (product.ProductId == 2)
+                {
+                    <a asp-page="ProductPage2">More Info</a>
+                }
+                @if (product.ProductId == 3)
+                {
+                    <a asp-page="ProductPage3">More Info</a>
+                }
+                @if (product.ProductId == 4)
+                {
+                    <a asp-page="ProductPage4">More Info</a>
+                }
+                @if (product.ProductId == 5)
+                {
+                    <a asp-page="ProductPage5">More Info</a>
+                }
+                @if (product.ProductId == 6)
+                {
+                    <a asp-page="ProductPage6">More Info</a>
+                }
+                @if (product.ProductId == 7)
+                {
+                    <a asp-page="ProductPage7">More Info</a>
+                }
+                @if (product.ProductId == 8)
+                {
+                    <a asp-page="ProductPage8">More Info</a>
+                }
+                @if (product.ProductId == 9)
+                {
+                    <a asp-page="ProductPage9">More Info</a>
+                }
+                @if (product.ProductId == 10)
+                {
+                    <a asp-page="ProductPage10">More Info</a>
+                }
+                @if (product.ProductId == 11)
+                {
+                    <a asp-page="ProductPage11">More Info</a>
+                }
+                @if (product.ProductId == 12)
+                {
+                    <a asp-page="ProductPage12">More Info</a>
+                }
+                @if (product.ProductId == 13)
+                {
+                    <a asp-page="ProductPage13">More Info</a>
+                }
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
+                {
+                    <form method="post">
+                        <input type="hidden" name="productId" value="@product.ProductId" />
+                        <button type="submit" class="add-to-cart-2">Add to Cart</button>
+                    </form>
+                }
+            </div>
+        }
+    </div>
+</main>

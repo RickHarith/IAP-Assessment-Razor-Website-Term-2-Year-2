@@ -1,0 +1,90 @@
+﻿@page
+@model Coursework.Pages.AddProductsModel
+@{
+}
+
+<main>
+    <div class="signup-bg">
+        <img src="Images\SignUp.png" class="sign-bg">
+        <div class="signup-text">
+            <h1>Add Products</h1>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="signup-container">
+        <div class="signup-header">
+            <h2>Add Product</h2>
+        </div>
+        <form class="signup-form" method="post" asp-page="AddProducts">
+            @if (TempData["LoginSuccessMessage"] != null)
+            {
+                <div class="text-success">
+                    @TempData["LoginSuccessMessage"]
+                </div>
+            }
+            <div asp-validation-summary="All" class="text-failure"></div>
+            <div class="signup-form-control">
+                <label>Product Name: </label>
+                <input type="text" asp-for="Product.Name" placeholder="Type your product name here">
+            </div>
+
+            <div class="signup-form-control">
+                <label>Product Description:</label>
+                <textarea asp-for="Product.Description" placeholder="Type your description here" rows="5" cols="50"></textarea>
+            </div>
+
+            <div class="signup-form-control">
+                <label>Product Price: </label>
+                <input type="text" asp-for="Product.Price" placeholder="Type your price here" />
+            </div>
+
+            <input type="submit" value="Add Product">
+        </form>
+    </div>
+    <br>
+    <br>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.ProductList)
+            {
+                <tr>
+                    <td>@product.ProductId</td>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price.ToString("$0.00")</td>
+                    @if (product.ProductId > 13)
+                    {
+                        <td>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@product.ProductId">
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <p>Cannot Delete</p>
+                        </td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+</main>
+

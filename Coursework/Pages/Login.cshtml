@@ -1,0 +1,51 @@
+﻿@page
+@model Coursework.Pages.LoginModel
+@using Coursework.Pages.Model
+
+@{
+
+}
+
+<main>
+	<div class="signup-bg">
+		<img src="Images\SignUp.png" class="sign-bg">
+		<div class="signup-text">
+			<h1>Log Into Your Account</h1>
+		</div>
+	</div>
+	<br><br><br>
+	<div class="signup-container">
+		<div class="signup-header">
+			<h2>Sign In</h2>
+		</div>
+		<form class="signup-form" method="post">
+			@if (!string.IsNullOrEmpty(Model.SignUpSuccessMessage))
+			{
+				<div class="text-success">@Model.SignUpSuccessMessage</div>
+			}
+			<div class="signup-form-control">
+				<div class="text-failure">
+					<ul>
+						@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+						{
+							<li>@error.ErrorMessage</li>
+						}
+					</ul>
+				</div>
+				<label>Username: </label>
+				<input type="text" name="Username" placeholder="Type your username here" asp-for="@Model.LoginInput.Username">
+			</div>
+
+			<div class="signup-form-control">
+				<label>Password: </label>	
+				<input type="password" name="Password" placeholder="Type your password here" asp-for="@Model.LoginInput.Password">
+			</div>
+
+			<input type="submit" value="Log In">  
+		</form>
+
+	</div>
+</main>
+<br>
+<br>
+<br>

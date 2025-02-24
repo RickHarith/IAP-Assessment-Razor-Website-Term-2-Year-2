@@ -1,0 +1,161 @@
+﻿@using System.Security.Claims
+<!DOCTYPE html>
+<html lang="en">
+<head> <!--Links to CSS-->
+	<meta charset="UTF-8"> <!--Character set that lets html to display properly-->
+	<meta name="viewport" content="width=device-width, intial-scale=1"> <!--This makes different browsers control the page's scalling and dimensions properly-->
+	<script src="https://kit.fontawesome.com/7d7f092cee.js" crossorigin="anonymous"></script> <!--This script is used for the social media icons-->
+
+	<title>Art Cavort's Stationary: Your Dreams Realised</title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Mulish:wght@300&family=Permanent+Marker&display=swap" rel="stylesheet">
+	<!--Above is the code for importing certain Google fonts-->
+    <title>@ViewData["Title"] - Coursework</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+	<header>
+		<div class="navbar">
+			<!--Navigation bar at the top of every page-->
+			<a asp-page="/Index"><img src="Images/logo.png" width="200" class="logo"></a>
+			<nav>
+				<ul class="navbar-contents">
+					<!--List to create the items in the navigation bar-->
+					<li class="navbar-item">
+						<!--The navbar item class is given to each link in the navigation bar, the a tag is used to make each of them links-->
+						<a asp-page="/Index" asp-area="" class="nav-link">Home</a>
+					</li>
+					@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+					{
+						<li class="navbar-item">
+							<a asp-page="/Admin" asp-area="" class="nav-link">Manage Users</a>
+						</li>
+						<li class="navbar-item">
+							<a asp-page="/AddProducts" asp-area="" class="nav-link">Add Products</a>
+						</li>
+						<li class="navbar-item">
+							<form method="post" asp-page-handler="Logout" asp-page="/Login">
+								<button type="submit" class="nav-logout">Log Out</button>
+							</form>
+						</li>
+					}
+					<li class="navbar-item">
+						<a asp-page="/Products" asp-area="" class="nav-link">Products</a>
+					</li>
+					<li class="navbar-item">
+						<a asp-page="/Search" asp-area="" class="nav-link">Search</a>
+					</li>
+					@if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
+					{
+						<li class="navbar-item">
+							<a asp-page="/ShoppingCart" asp-area="" class="nav-link">Shopping Cart</a>
+						</li>
+						<li class="navbar-item">
+							<form method="post" asp-page-handler="Logout" asp-page="/Login" onsubmit="return confirm('Are you sure you want to log out? Your cart will be cleared!');">
+							<button type="submit" class="nav-logout">Log Out</button>
+						</form>
+						</li>
+					}
+					@if (User.Identity.IsAuthenticated)
+					{
+					}
+					else
+					{
+					<li class="navbar-item">
+							<a asp-page="/SignUp" asp-area="" class="nav-link">Sign Up</a>
+						</li>
+						<li class="navbar-item">
+							<a asp-page="/Login" asp-area="" class="nav-link">Sign In</a>
+						</li>
+					}
+					@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+					{
+					}
+					else
+					{
+						<li class="navbar-item">
+							<a asp-page="/AboutUs" asp-area="" class="nav-link">About Us</a>
+						</li>
+						<li class="navbar-item">
+							<a asp-page="/ContactUs" asp-area="" class="nav-link">Contact Us</a>
+						</li>
+					}
+
+
+				</ul>
+				<div class="hamburger">
+					<!--These div here is used to make the hamburger menu-->
+					<span class="bar"></span>
+					<span class="bar"></span>
+					<span class="bar"></span>
+					<!--The reason for the three spans above is so I can use CSS to style three horizontal lines that resemble a menu icon instead of using an image-->
+				</div>
+			</nav>
+		</div>
+	</header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+	<footer>
+		<section class="footer-index">
+
+			<div class="buttons-container">
+				<h2>Change your font size: </h2>
+				<button id="increase-font-size">A+</button>
+				<button id="decrease-font-size">A-</button>
+				<button onclick="resetFontSize()">Reset Font Size</button>
+				<h2>WARNING: Changing the font size may break the websites layout, please reset the font size if this happens.</h2>
+			</div>
+
+			<div class="buttons-container">
+				<h2>Choose your colours: </h2>
+				<button id='red' class='redbutton'>Pastel Red</button>
+				<button id='blue' class='bluebutton'>Faint Blue</button>
+				<button id='green' class='greenbutton'>Summer Green</button>
+				<button id='yellow' class='yellowbutton'>Autumn Yellow</button>
+				<button id='white' class='whitebutton'>White</button>
+			</div>
+
+
+			<div class="footerlogo">
+				<img src="Images/logo.png">
+			</div>
+			<div class="social">
+				<!--Social media icons are copied from Font Awesome website-->
+				<a href="https://www.instagram.com/rick.harith/"><i class="fa-brands fa-instagram"></i></a>
+				<a href="https://www.youtube.com/channel/UCSQTPFsNZrG0aJGhOF7fdLw"><i class="fa-brands fa-youtube"></i></a>
+				<a href="https://www.facebook.com/rick.harith/"><i class="fa-brands fa-facebook"></i></a>
+			</div>
+			<div class="footernav">
+				<ul class="list">
+					<!--List of footer content-->
+					<li><a asp-page="/Index">Home</a></li>
+					<li><a asp-page="/AboutUs">About Us</a></li>
+					<li><a asp-page="/ContactUs">Contact Us</a></li>
+				</ul>
+			</div>
+			@if (User.Identity.IsAuthenticated)
+			{
+			<p>Role: @User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value</p>
+			}
+			<p>Name: Rick Richard Harith</p>
+			<p>Email: T0321003@my.ntu.ac.uk || Phone Number: 07864676131</p>
+			<p>
+				Copyright Information: All images used are not copyright free. &copy; @DateTime.Now.Year
+			</p>
+		</section>
+	</footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

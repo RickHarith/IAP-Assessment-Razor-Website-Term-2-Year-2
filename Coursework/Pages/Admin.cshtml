@@ -1,0 +1,68 @@
+﻿@page
+@model Coursework.Pages.AdminModel
+@{
+}
+
+<main>
+    <div class="signup-bg">
+        <img src="Images\SignUp.png" class="sign-bg">
+        <div class="signup-text">
+            <h1>Manage Users</h1>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    @if (TempData["LoginSuccessMessage"] != null)
+    {
+        <br>
+        <br>
+        <div class="text-success">
+            @TempData["LoginSuccessMessage"]
+        </div>
+    }
+    <p class="text-failure">Username and E-mail are unique.</p>
+     <p class="text-failure">Fields can only be edited one at a time.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <input type="text" name="username" value="@user.UserName" />
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <input type="text" name="name" value="@user.Name" />
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <input type="email" name="email" value="@user.Email" />
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button type="submit" class="delete-button" value="Delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</main>
